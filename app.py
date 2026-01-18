@@ -4,6 +4,14 @@ import plotly.express as px
 from database.data_loader import load_all_data
 import os
 
+from database.init_db import init_database
+# Auto-générer la base si elle n'existe pas
+DB_PATH = os.path.join(os.path.dirname(__file__), "database", "university.db")
+if not os.path.exists(DB_PATH):
+    st.info("🔄 Première initialisation : génération de la base de données...")
+    init_database()
+    st.success("✅ Base de données créée !")
+    st.rerun()
 # Configuration de la page (DOIT être en premier)
 st.set_page_config(
     page_title="Système de Gestion des Examens",
