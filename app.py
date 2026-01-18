@@ -4,6 +4,13 @@ import plotly.express as px
 from database.data_loader import load_all_data
 import os
 
+# Configuration de la page (DOIT être en premier)
+st.set_page_config(
+    page_title="Système de Gestion des Examens",
+    page_icon="🎓",
+    layout="wide"
+)
+
 # Vérifier et initialiser la base de données si nécessaire
 from database.db_config import database_exists, get_db_path
 
@@ -21,15 +28,7 @@ if not database_exists():
         st.balloons()
         st.rerun()
 
-# إعدادات الصفحة
-st.set_page_config(
-    page_title="Système de Gestion des Examens",
-    page_icon="🎓",
-    layout="wide"
-)
 
-
-# زر تحديث البيانات في القائمة الجانبية (لحل مشاكل الكاش)
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2997/2997287.png", width=100)
     st.title("Admin Tools")
@@ -41,21 +40,20 @@ st.title("🎓 Plateforme Universitaire - Gestion des Examens")
 st.markdown("### Architecture: Python + SQL (SQLite) + Streamlit")
 st.markdown("---")
 
-# 1. تحميل البيانات (مع الحماية)
-# نستخدم session_state لنحفظ البيانات طوال الجلسة
+
 if 'data' not in st.session_state or st.session_state.data is None:
     with st.spinner("🔌 Connexion à la base de données SQL..."):
         st.session_state.data = load_all_data()
 
 data = st.session_state.data
 
-# 2. الحماية من الانهيار (Crash Protection)
+
 if data is None:
     st.error("🚨 Erreur Critique : Base de données introuvable !")
     st.warning("Veuillez exécuter le script de génération : python database/init_db.py")
     st.stop()
 
-# 3. عرض لوحة التحكم (Dashboard)
+
 df_students = data['students']
 df_profs = data['profs']
 df_modules = data['modules']
@@ -78,7 +76,7 @@ with c1:
 
 with c2:
     st.subheader("👨‍🏫 Corps Enseignant")
-    # دمج الجدولين لعرض اسم القسم بدلاً من رقمه
+   
     df_prof_dept = pd.merge(df_profs, data['departments'], left_on='dept_id', right_on='id')
     counts = df_prof_dept['name'].value_counts().reset_index()
     counts.columns = ['Département', 'Nombre Profs']
