@@ -1,0 +1,38 @@
+# Environnement virtuel
+venv/
+env/
+.venv/
+database/venv/
+
+# Base de données (sera régénérée)
+database/university.db
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+database/__pycache__/
+logic/__pycache__/
+pages/__pycache__/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Fichiers Word (documentation locale)
+*.docx
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+
+# Variables d'environnement
+.env
+.env.local
