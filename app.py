@@ -45,7 +45,7 @@ with st.sidebar:
         st.rerun()
 
 st.title("🎓 Plateforme Universitaire - Gestion des Examens")
-st.markdown("### Architecture: Python + PostgreSql + Streamlit")
+
 st.markdown("---")
 
 
